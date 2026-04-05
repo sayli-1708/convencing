@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inside My Heart 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    h1 { color: #fff; }
+
+    .heart {
+      font-size: 80px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .heart:hover { transform: scale(1.2); }
+
+    .message {
+      margin-top: 20px;
+      font-size: 22px;
+      color: #fff;
+      max-width: 320px;
+      min-height: 60px;
+    }
+
+    .final { font-size: 26px; margin-top: 20px; color: #fff; display: none; }
+
+    .btn {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .yes { background: #ff4d6d; color: white; }
+    .no { background: #444; color: white; position: absolute; }
+
+    .hug-img { width: 200px; display: none; margin-top: 15px; }
+
+    .memory { display: none; color: white; margin-top: 15px; }
+
+    .secret { margin-top: 10px; color: #fff; cursor: pointer; text-decoration: underline; display:none; }
+
+    .tear, .heart-shower {
+      position: absolute;
+      animation: fall linear infinite;
+    }
+
+    .tear { width: 8px; height: 15px; background: #00c3ff; border-radius: 50%; }
+    .heart-shower { font-size: 20px; color: red; }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+  </style>
+</head>
+<body>
+
+<h1>See Inside My Heart 😢💖</h1>
+<div class="heart" id="heart">❤️</div>
+<div class="message" id="message"></div>
+<div class="final" id="final"></div>
+
+<img src="https://pngimg.com/uploads/couple/couple_PNG47.png" class="hug-img" id="hugImg">
+
+<div class="memory" id="memory">
+  Remember this moment? 😊<br>
+  We were happy… let's be again 💖
+</div>
+
+<button class="btn yes" id="yesBtn" style="display:none">Forgive Me ❤️</button>
+<button class="btn no" id="noBtn" style="display:none">Still Angry 😒</button>
+
+<div class="secret" id="secret">Click here if you still love me...</div>
+
+<script>
+  const messages = [
+    "Sorry na baala mood kharab kel me 💔",
+    "Sorry mazya raja vaps nhi honr n asa 💔",
+    "Me khoti nhi bolli na baala misunderstanding jhali na 💔",
+    "Sorry baal ghe na javal 💔",
+    "Yeu ka kushit 💖"
+  ];
+
+  let index = 0;
+
+  const heart = document.getElementById("heart");
+  const messageBox = document.getElementById("message");
+  const finalMsg = document.getElementById("final");
+  const hugImg = document.getElementById("hugImg");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const memory = document.getElementById("memory");
+  const secret = document.getElementById("secret");
+
+  function typeText(text) {
+    messageBox.innerHTML = "";
+    let i = 0;
+    let interval = setInterval(() => {
+      messageBox.innerHTML += text[i];
+      i++;
+      if (i === text.length) clearInterval(interval);
+    }, 40);
+  }
+
+  function createTears() {
+    for (let i = 0; i < 8; i++) {
+      const tear = document.createElement("div");
+      tear.classList.add("tear");
+      tear.style.left = Math.random() * window.innerWidth + "px";
+      tear.style.animationDuration = (Math.random() * 2 + 2) + "s";
+      document.body.appendChild(tear);
+    }
+  }
+
+  function heartShower() {
+    for (let i = 0; i < 30; i++) {
+      const h = document.createElement("div");
+      h.innerText = "❤️";
+      h.classList.add("heart-shower");
+      h.style.left = Math.random() * window.innerWidth + "px";
+      h.style.animationDuration = (Math.random() * 2 + 2) + "s";
+      document.body.appendChild(h);
+    }
+  }
+
+  heart.addEventListener("click", () => {
+    if (index < messages.length) {
+      typeText(messages[index]);
+      createTears();
+      index++;
+      heart.innerText = "💔";
+    } else {
+      heart.style.display = "none";
+      finalMsg.innerText = "Please forgive me 😢💖";
+      finalMsg.style.display = "block";
+      heartShower();
+      hugImg.style.display = "block";
+      memory.style.display = "block";
+      yesBtn.style.display = "inline-block";
+      noBtn.style.display = "inline-block";
+      secret.style.display = "block";
+    }
+  });
+
+  noBtn.addEventListener("mouseover", () => {
+    noBtn.style.top = Math.random() * window.innerHeight + "px";
+    noBtn.style.left = Math.random() * window.innerWidth + "px";
+  });
+
+  yesBtn.addEventListener("click", () => {
+    finalMsg.innerText = "I knew my baala loves me 🥺💖";
+  });
+
+  secret.addEventListener("click", () => {
+    alert("I love you more than my ego 💖");
+  });
+</script>
+
+</body>
+</html>
